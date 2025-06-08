@@ -14,14 +14,9 @@
 
 ```
 ImageSeg_U-net/
-├── data/                 # Data loading and processing scripts
-├── models/               # U-Net architecture implementation
-├── utils/                # Utility functions (e.g., visualization, metrics)
-├── train.py              # Script to train the model
-├── test.py               # Script to evaluate the model
-├── requirements.txt      # Python dependencies
+├── model.py             # U-Net architecture implementation
+├── dataset.py            # Script to train the model
 ├── README.md             # Project documentation
-└── examples/             # Example input images and segmentation results
 ```
 
 ## Getting Started
@@ -40,55 +35,18 @@ git clone https://github.com/Himanshu12328/ImageSeg_U-net.git
 cd ImageSeg_U-net
 ```
 
-2. Install the required packages:
-
-```bash
-pip install -r requirements.txt
-```
-
-### Dataset Preparation
-
-- Update the data loader in `data/` to point to your dataset path.
-- Organize your dataset into images and corresponding segmentation masks.
-
-Example structure:
-
-```
-dataset/
-├── images/
-│   ├── img1.png
-│   ├── img2.png
-│   └── ...
-└── masks/
-    ├── mask1.png
-    ├── mask2.png
-    └── ...
-```
-
 ### Training
 
 Run the training script:
 
 ```bash
-python train.py --data_dir path/to/dataset --epochs 50 --batch_size 8
+python model.py --data_dir path/to/dataset --epochs 50 --batch_size 8
 ```
 
 Adjust the hyperparameters as needed:
 - `--data_dir`: Path to your dataset
 - `--epochs`: Number of training epochs
 - `--batch_size`: Batch size for training
-
-### Evaluation
-
-Evaluate the trained model using:
-
-```bash
-python test.py --data_dir path/to/dataset --model_path path/to/saved_model.pth
-```
-
-### Visualization
-
-Visualize segmentation results using scripts in `utils/` or during testing.
 
 ## License
 
