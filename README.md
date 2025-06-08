@@ -127,29 +127,6 @@ Sample output:
 
 ---
 
-## 🐙 Uploading to GitHub (VS Code)
-
-Since your repo already exists on GitHub:
-
-1️⃣ Open VS Code in your project folder.  
-2️⃣ Open the terminal (`` Ctrl+` ``).  
-3️⃣ Ensure your repo is linked:
-```bash
-git remote -v
-```
-4️⃣ Add, commit, and push:
-```bash
-git add .
-git commit -m "Added visuals, metrics, advanced usage"
-git push origin main
-```
-
----
-
 ## 📜 License
 
 This project is licensed under the **MIT License**.
-
----
-
-Would you like to tweak or expand this even more? Let me know — I’m here to help! 🚀✨
