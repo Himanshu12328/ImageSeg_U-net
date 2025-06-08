@@ -1,58 +1,155 @@
-
 # ImageSeg_U-net
 
-**ImageSeg_U-net** is an image segmentation project that implements the U-Net architecture to perform semantic segmentation on images. The model is designed to accurately identify and label each pixel in an input image, enabling detailed scene understanding for applications like medical imaging, self-driving vehicles, and more.
+This project implements a U-Net model for image segmentation using the Carvana image dataset (car segmentation). It uses PyTorch with CUDA acceleration (if available).
 
-## Features
+---
 
-- **U-Net Architecture**: A convolutional neural network architecture specifically designed for semantic segmentation, with encoder-decoder pathways and skip connections for precise localization.
-- **Custom Dataset Support**: Easily adaptable to custom datasets with minimal modifications.
-- **Efficient Training Loop**: Modular training pipeline with logging and checkpointing.
-- **Visualization**: Visualize predicted segmentations alongside ground truth masks.
+## 🚀 Features
 
-## Project Structure
+- U-Net architecture with skip connections for accurate segmentation.
+- Supports GPU acceleration (CUDA) for faster training.
+- Dice coefficient, Intersection over Union (IoU), and pixel accuracy metrics.
+- Visualizations to inspect qualitative segmentation performance.
 
-```
-ImageSeg_U-net/
-├── model.py             # U-Net architecture implementation
-├── dataset.py            # Script to train the model
-├── README.md             # Project documentation
-```
+---
 
-## Getting Started
+## 🛠️ Setup
 
-### Prerequisites
-
-- Python 3.7+
-- Recommended: Create a virtual environment
-
-### Installation
-
-1. Clone the repository:
+1️⃣ Create a virtual environment (Python 3.10 recommended):
 
 ```bash
-git clone https://github.com/Himanshu12328/ImageSeg_U-net.git
-cd ImageSeg_U-net
+python -m venv venv
 ```
 
-### Training
+2️⃣ Activate it:
 
-Run the training script:
+- **PowerShell**:
+  ```bash
+  .\venv\Scripts\activate
+  ```
+- **CMD**:
+  ```bash
+  venv\Scripts\activate.bat
+  ```
+
+3️⃣ Install dependencies:
 
 ```bash
-python model.py --data_dir path/to/dataset --epochs 50 --batch_size 8
+pip install -r requirements.txt
 ```
 
-Adjust the hyperparameters as needed:
-- `--data_dir`: Path to your dataset
-- `--epochs`: Number of training epochs
-- `--batch_size`: Batch size for training
+4️⃣ Install CUDA-enabled PyTorch:
 
-## License
+```bash
+pip uninstall torch torchvision -y
+pip install torch==2.2.2 torchvision==0.17.2 --index-url https://download.pytorch.org/whl/cu121
+```
 
-This project is licensed under the [MIT License](LICENSE).
+5️⃣ Verify GPU support:
 
-## Acknowledgements
+```bash
+python -c "import torch; print(torch.cuda.is_available()); print(torch.cuda.get_device_name(0))"
+```
 
-- **U-Net** paper: *Ronneberger et al., 2015 (https://arxiv.org/abs/1505.04597)*
-- PyTorch and open-source contributors for model implementation references.
+---
+
+## 📥 Dataset Preparation
+
+Download the Carvana Image Masking dataset:  
+👉 [Carvana Dataset on Kaggle](https://www.kaggle.com/c/carvana-image-masking-challenge/data)
+
+Organize into:
+
+```
+dataset/
+├── images/
+│   ├── 0cdf5b5d0ce1_01.jpg
+│   ├── ...
+└── masks/
+    ├── 0cdf5b5d0ce1_01_mask.gif
+    ├── ...
+```
+
+---
+
+## ⚡ Training
+
+```bash
+python train.py
+```
+
+---
+
+## 📈 Evaluation & Visualization
+
+```bash
+python test.py
+```
+
+Sample output:
+
+| Sample | Dice  | IoU   | Accuracy |
+|--------|-------|-------|----------|
+| 1      | 0.305 | 0.180 | 0.178    |
+| 2      | 0.340 | 0.205 | 0.204    |
+| ...    | ...   | ...   | ...      |
+
+**Visual Examples:**
+
+![Example](./sample_image_unet.png)
+![Example2](./Test_unet.png)
+
+---
+
+## ⚙️ Advanced Usage
+
+- **Adjust batch size / resolution**:  
+  In `train.py` and `test.py`:
+  ```python
+  batch_size = 8  # increase for more GPU usage
+  transforms.Resize((256, 256))  # higher resolution
+  ```
+
+- **Adjust DataLoader parallelism**:  
+  ```python
+  loader = DataLoader(dataset, batch_size=4, shuffle=True, num_workers=4, pin_memory=True)
+  ```
+
+- **More metrics**:  
+  Edit `utils/metrics.py` to add additional evaluation metrics.
+
+---
+
+## 📚 References
+
+- U-Net Paper: [Ronneberger et al., 2015](https://arxiv.org/abs/1505.04597)
+- Carvana Dataset Challenge: [Kaggle Link](https://www.kaggle.com/c/carvana-image-masking-challenge)
+
+---
+
+## 🐙 Uploading to GitHub (VS Code)
+
+Since your repo already exists on GitHub:
+
+1️⃣ Open VS Code in your project folder.  
+2️⃣ Open the terminal (`` Ctrl+` ``).  
+3️⃣ Ensure your repo is linked:
+```bash
+git remote -v
+```
+4️⃣ Add, commit, and push:
+```bash
+git add .
+git commit -m "Added visuals, metrics, advanced usage"
+git push origin main
+```
+
+---
+
+## 📜 License
+
+This project is licensed under the **MIT License**.
+
+---
+
+Would you like to tweak or expand this even more? Let me know — I’m here to help! 🚀✨
